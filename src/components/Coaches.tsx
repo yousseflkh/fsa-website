@@ -36,7 +36,7 @@ const COACHES: Coach[] = [
     role: "Coach",
     bio: "[TBD — coaching role, age groups, background]",
     photo: "/Nick_Bryden.jpg",
-    photoPosition: "center 5%",
+    photoPosition: "center center",
   },
 ];
 
