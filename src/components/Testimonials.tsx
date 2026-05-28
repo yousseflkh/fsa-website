@@ -18,9 +18,9 @@ const TESTIMONIALS: Testimonial[] = [
   },
   {
     quote:
-      "Walking into a Farias session and walking into a club practice somewhere else feels like two different sports. The standards are real here.",
-    name: "[Name TBD]",
-    role: "Former U17 player · Now at university",
+      "Would not be the player I am today without FSA. Thank you to everyone who has been part of this journey! ❤️",
+    name: "Sydney Kennedy",
+    role: "Former FSA Player · Halifax Tides",
   },
   {
     quote:
@@ -133,9 +133,6 @@ export function Testimonials() {
             <p className="text-fsa-bone-muted text-lg leading-relaxed">
               The honest verdict from players, parents, and graduates of the
               program.
-              <span className="block mt-2 text-fsa-bone-dim text-sm">
-                [Quotes TBD — placeholder examples in tone of voice]
-              </span>
             </p>
           </Reveal>
         </div>
