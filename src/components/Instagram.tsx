@@ -1,35 +1,38 @@
 "use client";
 
 import { motion, useInView } from "framer-motion";
+import Image from "next/image";
 import { useRef } from "react";
 
 type Post = {
-  type: "image" | "reel";
+  photo: string | null; // set to e.g. "/ig_post1.jpg" once you have photos
+  href: string;         // link to the specific IG post
   label: string;
   meta: string;
-  tint: "crimson" | "gold" | "dark";
 };
 
+// ── Drop in real photos + post URLs here ────────────────────────────────────
 const POSTS: Post[] = [
-  { type: "reel", label: "Match Highlights", meta: "U17 vs HFX City", tint: "crimson" },
-  { type: "image", label: "Training Tuesday", meta: "Evening session · 18:30", tint: "dark" },
-  { type: "image", label: "Champions 🏆", meta: "Provincial title", tint: "gold" },
-  { type: "image", label: "Squad Photo", meta: "Senior Men · 2026", tint: "dark" },
-  { type: "reel", label: "Free Kick Goal", meta: "U18 · Provincial cup", tint: "crimson" },
-  { type: "image", label: "Tryouts Open", meta: "Register now", tint: "gold" },
-  { type: "image", label: "Coach Farias", meta: "Pre-match talk", tint: "dark" },
-  { type: "reel", label: "Skills Session", meta: "1v1 mastery", tint: "crimson" },
-  { type: "image", label: "FSA Family", meta: "End of season BBQ", tint: "dark" },
+  {
+    photo: null,
+    href: "https://www.instagram.com/fsasoccer/",
+    label: "Post 1",
+    meta: "@fsasoccer",
+  },
+  {
+    photo: null,
+    href: "https://www.instagram.com/fsasoccer/",
+    label: "Post 2",
+    meta: "@fsasoccer",
+  },
+  {
+    photo: null,
+    href: "https://www.instagram.com/fsasoccer/",
+    label: "Post 3",
+    meta: "@fsasoccer",
+  },
 ];
-
-const TINTS: Record<Post["tint"], string> = {
-  crimson:
-    "radial-gradient(ellipse 100% 60% at 50% 100%, rgba(139,26,26,0.5) 0%, rgba(10,9,8,0) 70%)",
-  gold:
-    "radial-gradient(ellipse 100% 60% at 50% 100%, rgba(212,164,55,0.22) 0%, rgba(10,9,8,0) 70%)",
-  dark:
-    "radial-gradient(ellipse 100% 60% at 50% 100%, rgba(28,24,21,0.6) 0%, rgba(10,9,8,0) 70%)",
-};
+// ────────────────────────────────────────────────────────────────────────────
 
 function PostCard({ post, index }: { post: Post; index: number }) {
   const ref = useRef(null);
@@ -38,49 +41,49 @@ function PostCard({ post, index }: { post: Post; index: number }) {
   return (
     <motion.a
       ref={ref}
-      href="https://www.instagram.com/fsasoccer/"
+      href={post.href}
       target="_blank"
       rel="noopener noreferrer"
       initial={{ y: 30, opacity: 0 }}
       animate={inView ? { y: 0, opacity: 1 } : {}}
-      transition={{
-        duration: 0.7,
-        delay: index * 0.04,
-        ease: [0.22, 1, 0.36, 1],
-      }}
+      transition={{ duration: 0.7, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
       className="group relative overflow-hidden aspect-square border border-fsa-bone/8 hover:border-fsa-gold/40 transition-all duration-500"
     >
-      <div
-        className="absolute inset-0"
-        style={{
-          background:
-            "linear-gradient(180deg, #1c1815 0%, #14110f 60%, #0a0908 100%)",
-        }}
-      />
-      <div
-        className="absolute inset-0 opacity-70 group-hover:opacity-100 transition-opacity duration-700"
-        style={{ background: TINTS[post.tint] }}
-      />
-      <div className="diagonal-lines absolute inset-0 opacity-40" />
-
-      {/* Reel icon */}
-      {post.type === "reel" && (
-        <div className="absolute top-3 right-3 z-10">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-fsa-bone">
-            <polygon points="5 3 19 12 5 21 5 3" fill="currentColor" />
-          </svg>
-        </div>
+      {/* Photo or placeholder */}
+      {post.photo ? (
+        <Image
+          src={post.photo}
+          alt={post.label}
+          fill
+          sizes="(min-width: 1024px) 33vw, (min-width: 640px) 33vw, 100vw"
+          className="object-cover scale-100 group-hover:scale-105 transition-transform duration-[1200ms] ease-out"
+        />
+      ) : (
+        <div
+          className="absolute inset-0"
+          style={{
+            background: "linear-gradient(180deg, #1c1815 0%, #14110f 60%, #0a0908 100%)",
+          }}
+        />
       )}
 
-      {/* Hover overlay with view CTA */}
-      <div className="absolute inset-0 bg-fsa-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10 flex flex-col items-center justify-center text-center p-4">
-        <span className="font-display text-fsa-bone text-base lg:text-lg tracking-wide leading-tight">
-          {post.label.toUpperCase()}
-        </span>
-        <span className="mt-2 eyebrow text-fsa-gold text-[0.6rem]">{post.meta}</span>
-        <span className="mt-4 eyebrow text-fsa-bone-dim text-[0.6rem]">
-          View on Instagram ↗
-        </span>
+      {/* Subtle dark wash */}
+      <div className="absolute inset-0 bg-fsa-black/20 group-hover:bg-fsa-black/10 transition-colors duration-500" />
+      <div className="diagonal-lines absolute inset-0 opacity-30" />
+
+      {/* Instagram icon top-right */}
+      <div className="absolute top-3 right-3 z-10 opacity-60 group-hover:opacity-100 transition-opacity duration-300">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" className="text-fsa-bone">
+          <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+        </svg>
+      </div>
+
+      {/* Hover overlay */}
+      <div className="absolute inset-0 bg-fsa-black/65 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10 flex flex-col items-center justify-center gap-3">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" className="text-fsa-bone opacity-80">
+          <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+        </svg>
+        <span className="eyebrow text-fsa-bone text-[0.65rem]">View on Instagram ↗</span>
       </div>
     </motion.a>
   );
@@ -135,9 +138,6 @@ export function Instagram() {
             <p className="text-fsa-bone-muted text-lg leading-relaxed">
               Match highlights, training nights, and the moments in between.
               Follow FSA on Instagram for everything happening at the academy.
-              <span className="block mt-2 text-fsa-bone-dim text-sm">
-                [Tiles below are placeholders — wire to Instagram API for live feed]
-              </span>
             </p>
             <a
               href="https://www.instagram.com/fsasoccer/"
@@ -145,15 +145,12 @@ export function Instagram() {
               rel="noopener noreferrer"
               className="self-start inline-flex items-center gap-3 border border-fsa-bone/30 hover:border-fsa-gold hover:bg-fsa-bone/5 text-fsa-bone hover:text-fsa-gold px-6 py-3 text-sm font-bold uppercase tracking-widest rounded-sm transition-all duration-300"
             >
-              Follow on Instagram
-              <span className="transition-transform duration-300 group-hover:translate-x-1">
-                ↗
-              </span>
+              Follow on Instagram ↗
             </a>
           </Reveal>
         </div>
 
-        <div className="grid grid-cols-3 gap-2 md:gap-3">
+        <div className="grid grid-cols-3 gap-3 md:gap-4">
           {POSTS.map((p, i) => (
             <PostCard key={i} post={p} index={i} />
           ))}
