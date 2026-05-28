@@ -56,6 +56,7 @@ function PostCard({ post, index }: { post: Post; index: number }) {
           alt={post.label}
           fill
           sizes="(min-width: 1024px) 33vw, (min-width: 640px) 33vw, 100vw"
+          quality={90}
           className="object-cover scale-100 group-hover:scale-105 transition-transform duration-[1200ms] ease-out"
         />
       ) : (
