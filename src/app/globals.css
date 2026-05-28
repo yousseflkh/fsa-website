@@ -1,26 +1,140 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --fsa-black: #0a0908;
+  --fsa-ink: #14110f;
+  --fsa-ink-2: #1c1815;
+  --fsa-crimson: #8b1a1a;
+  --fsa-crimson-deep: #5c1010;
+  --fsa-crimson-bright: #a32424;
+  --fsa-gold: #d4a437;
+  --fsa-gold-bright: #e8bc4d;
+  --fsa-gold-deep: #8a6a1f;
+  --fsa-bone: #f5f2ec;
+  --fsa-bone-muted: #b8b2a5;
+  --fsa-bone-dim: #6d685e;
+
+  --background: var(--fsa-black);
+  --foreground: var(--fsa-bone);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-fsa-black: var(--fsa-black);
+  --color-fsa-ink: var(--fsa-ink);
+  --color-fsa-ink-2: var(--fsa-ink-2);
+  --color-fsa-crimson: var(--fsa-crimson);
+  --color-fsa-crimson-deep: var(--fsa-crimson-deep);
+  --color-fsa-crimson-bright: var(--fsa-crimson-bright);
+  --color-fsa-gold: var(--fsa-gold);
+  --color-fsa-gold-bright: var(--fsa-gold-bright);
+  --color-fsa-gold-deep: var(--fsa-gold-deep);
+  --color-fsa-bone: var(--fsa-bone);
+  --color-fsa-bone-muted: var(--fsa-bone-muted);
+  --color-fsa-bone-dim: var(--fsa-bone-dim);
+
+  --font-display: var(--font-anton);
+  --font-sans: var(--font-inter);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  background: var(--fsa-black);
+  scroll-behavior: auto;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--fsa-black);
+  color: var(--fsa-bone);
+  font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  font-feature-settings: "ss01", "cv11";
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--fsa-gold);
+  color: var(--fsa-black);
+}
+
+/* Film grain overlay — very subtle, gives the whole site a premium analog feel */
+.grain::before {
+  content: "";
+  position: fixed;
+  inset: -50%;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.08;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.6 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
+/* Hero gradient — deep crimson radial bloom over near-black */
+.hero-bg {
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 40%, rgba(139, 26, 26, 0.45) 0%, rgba(139, 26, 26, 0.18) 35%, rgba(10, 9, 8, 0) 70%),
+    radial-gradient(ellipse 100% 80% at 50% 110%, rgba(92, 16, 16, 0.55) 0%, rgba(10, 9, 8, 0) 60%),
+    linear-gradient(180deg, #0a0908 0%, #14110f 100%);
+}
+
+/* Diagonal stripe accent — subtle architectural texture */
+.diagonal-lines {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    transparent 0,
+    transparent 24px,
+    rgba(212, 164, 55, 0.04) 24px,
+    rgba(212, 164, 55, 0.04) 25px
+  );
+}
+
+.font-display {
+  font-family: var(--font-anton), Impact, sans-serif;
+  letter-spacing: 0.01em;
+}
+
+/* Massive display text — used for hero headline. Tighter leading, optical kerning */
+.headline {
+  font-family: var(--font-anton), Impact, sans-serif;
+  font-weight: 400;
+  letter-spacing: -0.005em;
+  line-height: 0.88;
+  text-transform: uppercase;
+}
+
+.eyebrow {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+}
+
+/* Gold gradient text accent for special words */
+.text-gold-gradient {
+  background: linear-gradient(180deg, #e8bc4d 0%, #d4a437 50%, #8a6a1f 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Animated underline for scroll cue */
+@keyframes scrollCue {
+  0% { transform: translateY(-100%); opacity: 0; }
+  30% { opacity: 1; }
+  100% { transform: translateY(100%); opacity: 0; }
+}
+
+.scroll-cue::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent, var(--fsa-gold), transparent);
+  animation: scrollCue 2.2s ease-in-out infinite;
+}
+
+/* Subtle glow ring behind crest */
+.crest-glow {
+  filter: drop-shadow(0 0 40px rgba(139, 26, 26, 0.5)) drop-shadow(0 0 80px rgba(212, 164, 55, 0.15));
 }
