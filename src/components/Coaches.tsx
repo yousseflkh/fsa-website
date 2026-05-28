@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, useInView } from "framer-motion";
+import Image from "next/image";
 import { useRef } from "react";
 import { Spotlight } from "./Spotlight";
 
@@ -8,6 +9,8 @@ type Coach = {
   name: string;
   role: string;
   bio: string;
+  photo?: string;
+  photoPosition?: string;
 };
 
 const COACHES: Coach[] = [
@@ -25,11 +28,15 @@ const COACHES: Coach[] = [
     name: "Colton Kaizer",
     role: "Coach",
     bio: "[TBD — coaching role, age groups, background]",
+    photo: "/Colton_Kaizer.jpg",
+    photoPosition: "center 10%",
   },
   {
     name: "Nick Bryden",
     role: "Coach",
     bio: "[TBD — coaching role, age groups, background]",
+    photo: "/Nick_Bryden.jpg",
+    photoPosition: "center 5%",
   },
 ];
 
@@ -71,17 +78,41 @@ function CoachCard({ coach, index }: { coach: Coach; index: number }) {
           />
           <div className="diagonal-lines absolute inset-0 opacity-50" />
 
-          <div className="absolute inset-0 flex items-center justify-center">
-            <span className="font-display text-[8rem] md:text-[12rem] leading-none text-fsa-bone/[0.06] tracking-tighter group-hover:text-fsa-gold/10 transition-colors duration-700">
-              {initials(coach.name)}
-            </span>
-          </div>
+          {coach.photo ? (
+            <>
+              <Image
+                src={coach.photo}
+                alt={coach.name}
+                fill
+                sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
+                className="object-cover scale-105 group-hover:scale-110 transition-transform duration-[1200ms] ease-out"
+                style={{ objectPosition: coach.photoPosition ?? "center top" }}
+              />
+              {/* Subtle dark vignette so card text + tint still reads */}
+              <div className="absolute inset-0 bg-fsa-black/20 group-hover:bg-fsa-black/10 transition-colors duration-500" />
+              <div
+                className="absolute inset-x-0 bottom-0 h-1/3"
+                style={{
+                  background:
+                    "linear-gradient(180deg, rgba(10,9,8,0) 0%, rgba(10,9,8,0.85) 100%)",
+                }}
+              />
+            </>
+          ) : (
+            <div className="absolute inset-0 flex items-center justify-center">
+              <span className="font-display text-[8rem] md:text-[12rem] leading-none text-fsa-bone/[0.06] tracking-tighter group-hover:text-fsa-gold/10 transition-colors duration-700">
+                {initials(coach.name)}
+              </span>
+            </div>
+          )}
 
-          <div className="absolute bottom-5 right-5">
-            <span className="eyebrow text-[0.6rem] text-fsa-bone-dim">
-              [Photo TBD]
-            </span>
-          </div>
+          {!coach.photo && (
+            <div className="absolute bottom-5 right-5">
+              <span className="eyebrow text-[0.6rem] text-fsa-bone-dim">
+                [Photo TBD]
+              </span>
+            </div>
+          )}
         </div>
 
         <div className="p-6 lg:p-8">
