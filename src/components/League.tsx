@@ -65,18 +65,27 @@ export function League() {
             <div className="diagonal-lines absolute inset-0 opacity-40 pointer-events-none" />
 
             <div className="relative">
-              <div className="flex items-center gap-3 mb-6">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" className="text-fsa-gold">
-                  <path d="M12 .587l3.668 7.568L24 9.75l-6 5.85 1.417 8.265L12 19.771l-7.417 4.094L6 15.6 0 9.75l8.332-1.595z" />
-                </svg>
-                <span className="eyebrow text-fsa-gold">Senior AAA</span>
+              <div className="flex flex-col sm:flex-row sm:items-center gap-8 mb-8">
+                {/* NSSL Logo */}
+                <img
+                  src="/NSSL.svg"
+                  alt="Nova Scotia Soccer League"
+                  className="w-24 h-24 lg:w-32 lg:h-32 object-contain opacity-90"
+                />
+                <div>
+                  <div className="flex items-center gap-3 mb-4">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" className="text-fsa-gold">
+                      <path d="M12 .587l3.668 7.568L24 9.75l-6 5.85 1.417 8.265L12 19.771l-7.417 4.094L6 15.6 0 9.75l8.332-1.595z" />
+                    </svg>
+                    <span className="eyebrow text-fsa-gold">Senior AAA</span>
+                  </div>
+                  <h3 className="font-display text-fsa-bone text-4xl lg:text-6xl leading-none tracking-tight">
+                    NSSL PREMIER
+                    <br />
+                    LEAGUE
+                  </h3>
+                </div>
               </div>
-
-              <h3 className="font-display text-fsa-bone text-4xl lg:text-6xl leading-none tracking-tight">
-                NSSL PREMIER
-                <br />
-                LEAGUE
-              </h3>
 
               <p className="mt-6 text-fsa-bone-muted text-lg leading-relaxed max-w-2xl">
                 Nova Scotia&apos;s top senior division, established in 1983.
