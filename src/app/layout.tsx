@@ -4,6 +4,8 @@ import "./globals.css";
 import { SmoothScroll } from "@/components/SmoothScroll";
 import { Nav } from "@/components/Nav";
 import { Intro } from "@/components/Intro";
+import { ScrollToTop } from "@/components/ScrollToTop";
+import { FloatingJoin } from "@/components/FloatingJoin";
 
 const anton = Anton({
   variable: "--font-anton",
@@ -40,6 +42,8 @@ export default function RootLayout({
           <Nav />
           <main className="relative">{children}</main>
         </SmoothScroll>
+        <ScrollToTop />
+        <FloatingJoin />
       </body>
     </html>
   );

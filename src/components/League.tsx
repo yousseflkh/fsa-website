@@ -95,14 +95,14 @@ export function League() {
               <div className="mt-10 grid grid-cols-3 gap-px bg-fsa-bone/8 max-w-2xl">
                 {[
                   { label: "Teams", value: "9" },
-                  { label: "Format", value: "Summer + Playoffs" },
+                  { label: "Format", value: "Summer" },
                   { label: "Established", value: "1983" },
                 ].map((s) => (
-                  <div key={s.label} className="bg-fsa-ink p-5">
-                    <div className="font-display text-2xl lg:text-3xl text-gold-gradient leading-none">
+                  <div key={s.label} className="bg-fsa-ink p-4 lg:p-5">
+                    <div className="font-display text-xl lg:text-3xl text-gold-gradient leading-none">
                       {s.value}
                     </div>
-                    <div className="mt-2 eyebrow text-fsa-bone-dim text-[0.6rem]">
+                    <div className="mt-2 eyebrow text-fsa-bone-dim text-[0.55rem] lg:text-[0.6rem]">
                       {s.label}
                     </div>
                   </div>
