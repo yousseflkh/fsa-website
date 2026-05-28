@@ -14,19 +14,19 @@ type Post = {
 // ── Drop in real photos + post URLs here ────────────────────────────────────
 const POSTS: Post[] = [
   {
-    photo: null,
+    photo: "/Instagram1.png",
     href: "https://www.instagram.com/fsasoccer/",
     label: "Post 1",
     meta: "@fsasoccer",
   },
   {
-    photo: null,
+    photo: "/Instagram2.png",
     href: "https://www.instagram.com/fsasoccer/",
     label: "Post 2",
     meta: "@fsasoccer",
   },
   {
-    photo: null,
+    photo: "/Instagram3.png",
     href: "https://www.instagram.com/fsasoccer/",
     label: "Post 3",
     meta: "@fsasoccer",
