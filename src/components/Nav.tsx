@@ -79,7 +79,9 @@ export function Nav() {
           </nav>
 
           <a
-            href="#contact"
+            href="https://www.rampregistrations.com/login?v3=4b98782753"
+            target="_blank"
+            rel="noopener noreferrer"
             className="hidden md:inline-flex items-center gap-2 bg-fsa-crimson hover:bg-fsa-crimson-bright text-fsa-bone px-5 py-2.5 text-sm font-semibold rounded-sm transition-colors duration-300 group"
           >
             Join FSA
@@ -143,7 +145,9 @@ export function Nav() {
               </nav>
 
               <motion.a
-                href="#contact"
+                href="https://www.rampregistrations.com/login?v3=4b98782753"
+                target="_blank"
+                rel="noopener noreferrer"
                 onClick={() => setOpen(false)}
                 initial={{ y: 20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
